@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+
+
+    <body>
+        <h2>Chat live</h2>
+
+        <div class="container" id="chat"></div>
+
+        <input type="text" id="text" placeholder="digite aqui..."></input>
+        <button onclick="sendMessage()">Enviar</button>
+
+
+    <script>
+        // Create WebSocket connection.
+        let name = ''
+        while (!name) {
+            name = prompt("Nick usado no chat")
+            console.log(name)
+        }
+        const socket = new WebSocket('ws://localhost:3000');
+        socket.addEventListener('open', function () {
+            socket.send(name + " entrou");
+        })
+        
+        // Listen for messages
+        socket.addEventListener('message', function (event) {
+            let msg = (event.data);
+            console.log(msg)
+            let textNode = document.createTextNode(msg)
+            let div = document.getElementById("chat")
+            div.appendChild(textNode)
+            div.appendChild(document.createElement("br"))
+        });
+
+        const sendMessage = () => {
+            let text = document.getElementById('text')
+            let msg = name + ": " + text.value
+
+            socket.send(msg);
+            text.value = "";
+        }
+    </script>
+</body>
+</html>
