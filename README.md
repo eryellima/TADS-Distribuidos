@@ -1,4 +1,4 @@
-# Trabalhos de Desenvolvimento de Sistemas Distribuídos
+# Desenvolvimento de Sistemas Distribuídos
 
 ## Descrição:
 Este repositório foi criado para armazenar os trabalhos desenvolvidos como parte da disciplina de Desenvolvimento de Sistemas Distribuídos. Cada trabalho está organizado em uma subpasta correspondente, contendo os arquivos e recursos relacionados.
