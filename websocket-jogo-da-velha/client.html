@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Jogo da Velha</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+
+    table td {
+      border: 1px solid black;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .message {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jogo da Velha</h1>
+
+  <table id="board">
+    <tr>
+      <td onclick="makeMove(0, 0)"></td>
+      <td onclick="makeMove(0, 1)"></td>
+      <td onclick="makeMove(0, 2)"></td>
+    </tr>
+    <tr>
+      <td onclick="makeMove(1, 0)"></td>
+      <td onclick="makeMove(1, 1)"></td>
+      <td onclick="makeMove(1, 2)"></td>
+    </tr>
+    <tr>
+      <td onclick="makeMove(2, 0)"></td>
+      <td onclick="makeMove(2, 1)"></td>
+      <td onclick="makeMove(2, 2)"></td>
+    </tr>
+  </table>
+
+  <div id="message" class="message"></div>
+
+  <script>
+    const socket = new WebSocket('ws://localhost:8080');
+
+    const board = document.getElementById('board');
+    const message = document.getElementById('message');
+
+    function makeMove(row, col) {
+      if (board.rows[row].cells[col].innerHTML === '') {
+        socket.send(JSON.stringify({ row, col }));
+      }
+    }
+
+    function updateBoard(gameBoard) {
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          board.rows[row].cells[col].innerHTML = gameBoard[row][col];
+        }
+      }
+    }
+
+    function updateMessage(currentPlayer, winner) {
+      if (winner) {
+        message.innerHTML = `O jogador ${winner} venceu!`;
+      } else {
+        message.innerHTML = `É a vez do jogador ${currentPlayer}`;
+      }
+    }
+
+    socket.onmessage = function (event) {
+      const { currentPlayer, gameBoard, winner } = JSON.parse(event.data);
+      updateBoard(gameBoard);
+      updateMessage(currentPlayer, winner);
+    };
+  </script>
+</body>
+</html>
