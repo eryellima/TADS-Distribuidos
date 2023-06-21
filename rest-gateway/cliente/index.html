@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Tarefas</title>
+</head>
+<body>
+  <h1>Lista de Tarefas</h1>
+
+  <button id="refresh-button">Atualizar</button>
+
+  <ul id="task-list"></ul>
+
+  <script>
+    // Obtém a referência para o elemento da lista de tarefas
+    const taskList = document.getElementById('task-list');
+
+    // Função para atualizar a lista de tarefas
+    function updateTaskList() {
+      // Faz uma requisição HTTP para obter as tarefas do gateway
+      fetch('http://localhost:8000/api/tasks/')
+        .then(response => response.json())
+        .then(data => {
+          // Limpa a lista de tarefas
+          taskList.innerHTML = '';
+
+          // Itera sobre os dados das tarefas e cria elementos <li> para cada uma
+          data.forEach(task => {
+            const listItem = document.createElement('li');
+            listItem.textContent = task.title;
+            taskList.appendChild(listItem);
+          });
+        })
+        .catch(error => {
+          console.error('Erro ao obter as tarefas:', error);
+        });
+    }
+
+    // Adiciona um listener de evento para o botão de atualização
+    const refreshButton = document.getElementById('refresh-button');
+    refreshButton.addEventListener('click', updateTaskList);
+
+    // Atualiza a lista de tarefas ao carregar a página
+    updateTaskList();
+  </script>
+  
+</body>
+</html>
