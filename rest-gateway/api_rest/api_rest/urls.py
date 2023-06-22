@@ -2,14 +2,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-
 from rest_framework import routers
+from api.views import ChampionViewSet, OrigemViewSet,ClasseViewSet, ItemViewSet, MelhoriaViewSet
 
-from api.views import TaskViewSet, LivroViewSet
+#from api.views import TaskViewSet, LivroViewSet
 
 router = routers.DefaultRouter()
-router.register(r'tasks', TaskViewSet)
-router.register(r'livros', LivroViewSet)
+router.register(r'champions', ChampionViewSet)
+router.register(r'origens', OrigemViewSet)
+router.register(r'classes', ClasseViewSet)
+router.register(r'itens', ItemViewSet)
+router.register(r'melhorias', MelhoriaViewSet)
+
+#router.register(r'tasks', TaskViewSet)
+#router.register(r'livros', LivroViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
