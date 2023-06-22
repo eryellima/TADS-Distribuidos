@@ -1,0 +1,28 @@
+# Arquivos e diretórios a serem ignorados pelo Git
+
+# Arquivos de compilação e binários
+*.o
+*.pyc
+*.class
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Diretórios gerados
+__pycache__/
+dist/
+build/
+*.egg-info/
+
+# Arquivos de configuração
+*.ini
+
+# Arquivos específicos
+desktop.ini
+
+# Outros arquivos e diretórios
+.env
+/.venv
+/.vscode
+/.idea
