@@ -1,31 +1,35 @@
 from django.db import models
 
-class Item(models.Model):
+class Item_Basico(models.Model):
     nome = models.CharField(max_length=200)
     status = models.CharField(max_length=200)
     buff = models.CharField(max_length=200)
-    Item_Receita = models.ForeignKey(on_delete=models.CASCADE, related_name='item')
-
+    
     def __str__(self):
         return self.nome
     
 class Item_Receita(models.Model):
-    item1 = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='item1')
-    item2 = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='item2')
-
-class Build(models.Model):
-    item1 = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='item1')
-    item2 = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='item2')
-    item3 = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='item3')
-
-class Champion_Habilidade(models.Models):
     nome = models.CharField(max_length=200)
-    ativo = models.BooleanField(default=False)
-    descricao = models.TextField()
-    dano = models.IntegerField()
+    item1 = models.ForeignKey(Item_Basico, on_delete=models.CASCADE, related_name='item1')
+    item2 = models.ForeignKey(Item_Basico, on_delete=models.CASCADE, related_name='item2')
 
     def __str__(self):
         return self.nome
+
+class Item_Completo(models.Model):
+    nome = models.CharField(max_length=200)
+    status = models.CharField(max_length=200)
+    buff = models.CharField(max_length=200)
+    receita = models.ForeignKey(Item_Receita, on_delete=models.CASCADE, related_name='item_completo')
+
+    def __str__(self):
+        return self.nome
+
+class Build(models.Model):
+    item1 = models.ForeignKey(Item_Completo, on_delete=models.CASCADE, related_name='item1')
+    item2 = models.ForeignKey(Item_Completo, on_delete=models.CASCADE, related_name='item2')
+    item3 = models.ForeignKey(Item_Completo, on_delete=models.CASCADE, related_name='item3')
+
 
 class Origem(models.Model):
     nome = models.CharField(max_length=200)
@@ -55,7 +59,7 @@ class Champion(models.Model):
     dano = models.IntegerField()
     crti_rate = models.IntegerField()
     alcance = models.IntegerField()
-    habilidade = models.ForeignKey(Champion_Habilidade, on_delete=models.CASCADE, related_name='habilidade')
+    habilidade = models.TextField()
 
     def __str__(self):
         return self.nome

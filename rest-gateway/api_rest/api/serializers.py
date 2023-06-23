@@ -1,44 +1,44 @@
 from rest_framework import serializers
-from .models import Champion, Champion_Habilidade, Origem, Classe, Item, Item_Receita, Build, Melhoria
+from .models import Champion, Origem, Classe, Item_Basico, Item_Completo, Item_Receita, Build, Melhoria
 
 #from .models import Task, Livro
 
-class ChampionSerilizer(serializers.ModelSerializer):
+class ChampionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Champion
         fields = '__all__'
 
-class ChampionHabilidadeSerilizer(serializers.ModelSerializer):
-    class Meta:
-        model = Champion_Habilidade
-        fields = '__all__'
-
-class OrigemSerilizer(serializers.ModelSerializer):
+class OrigemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Origem
         fields = '__all__'
 
-class ClasseSerilizer(serializers.ModelSerializer):
+class ClasseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Classe
         fields = '__all__'
 
-class ItemSerilizer(serializers.ModelSerializer):
+class ItemBasicoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Item
+        model = Item_Basico
         fields = '__all__'
 
-class ItemReceitaSerilizer(serializers.ModelSerializer):
+class ItemReceitaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item_Receita
         fields = '__all__'
 
-class BuildSerilizer(serializers.ModelSerializer):
+class ItemCompletoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item_Completo
+        fields = '__all__'
+
+class BuildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Build
         fields = '__all__'
 
-class MelhoriaSerilizer(serializers.ModelSerializer):
+class MelhoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Melhoria
         fields = '__all__'

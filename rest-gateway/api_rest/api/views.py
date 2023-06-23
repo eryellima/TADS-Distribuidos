@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Champion, Champion_Habilidade, Origem, Classe, Item, Item_Receita, Build, Melhoria
-from .serializers import ChampionSerilizer, ChampionHabilidadeSerilizer, OrigemSerilizer, ClasseSerilizer, ItemSerilizer, ItemReceitaSerilizer, BuildSerilizer, MelhoriaSerilizer
+from .models import Champion, Origem, Classe, Item_Basico, Item_Completo, Item_Receita, Build, Melhoria
+from .serializers import ChampionSerializer, OrigemSerializer, ClasseSerializer, ItemBasicoSerializer, ItemReceitaSerializer, ItemCompletoSerializer, BuildSerializer, MelhoriaSerializer
 
 #from .models import Task, Livro
 #from .serializers import TaskSerializer, LivroSerializer
@@ -8,35 +8,35 @@ from .serializers import ChampionSerilizer, ChampionHabilidadeSerilizer, OrigemS
 
 class ChampionViewSet(viewsets.ModelViewSet):
     queryset = Champion.objects.all()
-    serializer_class = ChampionSerilizer
-
-class ChampionHabilidadeViewSet(viewsets.ModelViewSet):
-    queryset = Champion_Habilidade.objects.all()
-    serializer_class = ChampionHabilidadeSerilizer
+    serializer_class = ChampionSerializer
 
 class OrigemViewSet(viewsets.ModelViewSet):
     queryset = Origem.objects.all()
-    serializer_class = OrigemSerilizer
+    serializer_class = OrigemSerializer
 
 class ClasseViewSet(viewsets.ModelViewSet):
     queryset = Classe.objects.all()
-    serializer_class = ClasseSerilizer
+    serializer_class = ClasseSerializer
 
-class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerilizer
+class ItemBasicoViewSet(viewsets.ModelViewSet):
+    queryset = Item_Basico.objects.all()
+    serializer_class = ItemBasicoSerializer
 
 class ItemReceitaViewSet(viewsets.ModelViewSet):
     queryset = Item_Receita.objects.all()
-    serializer_class = ItemReceitaSerilizer
+    serializer_class = ItemReceitaSerializer
+
+class ItemCompletoViewSet(viewsets.ModelViewSet):
+    queryset = Item_Completo.objects.all()
+    serializer_class = ItemCompletoSerializer
 
 class BuildViewSet(viewsets.ModelViewSet):
     queryset = Build.objects.all()
-    serializer_class = BuildSerilizer
+    serializer_class = BuildSerializer
 
 class MelhoriaViewSet(viewsets.ModelViewSet):
     queryset = Melhoria.objects.all()
-    serializer_class = MelhoriaSerilizer
+    serializer_class = MelhoriaSerializer
 
 
 """
