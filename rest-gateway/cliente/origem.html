@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Origem</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+        </ul>
+    </nav>
+    <h1>Origem</h1>
+    <form>
+        <label for="id">ID da Origem:</label>
+        <input type="number" id="id">
+        <button type="button" onclick="buscarOrigem()">Buscar</button>
+    </form>
+
+    <h2>Dados da Origem</h2>
+    <p>
+        <strong>Origem:</strong> <span id="nomeOrigem"></span><br>
+        <strong>Bônus:</strong> <span id="bonusOrigem"></span>
+    </p>
+
+    <script>
+        function buscarOrigem() {
+            const id = document.getElementById("id").value;
+            const url = `http://127.0.0.1:8000/origens/${id}/`;
+
+            console.log("URL:", url);
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Dados:", data);
+                    atualizarCampos(data);
+                })
+                .catch(error => console.log(error));
+        }
+
+        function atualizarCampos(origem) {
+            console.log("Origem:", origem);
+
+            const nomeOrigemElement = document.getElementById("nomeOrigem");
+            const bonusOrigemElement = document.getElementById("bonusOrigem");
+
+            nomeOrigemElement.textContent = origem.nome;
+            bonusOrigemElement.textContent = origem.bonus;
+        }
+
+    </script>
+</body>
+</html>

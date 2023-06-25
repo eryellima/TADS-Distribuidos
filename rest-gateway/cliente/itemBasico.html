@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Itens Básicos</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+        </ul>
+    </nav>
+    <h1>Itens Básicos</h1>
+    <form>
+        <label for="id">ID do Item:</label>
+        <input type="number" id="id">
+        <button type="button" onclick="buscarItemBasico()">Buscar</button>
+    </form>
+
+    <h2>Dados da Item</h2>
+    <p>
+        <strong>Nome:</strong> <span id="nomeItem"></span><br>
+        <strong>Status:</strong> <span id="statusItem"></span><br>
+        <strong>Buff: </strong> <span id="buffItem"></span>
+    </p>
+
+    <script>
+        function buscarItemBasico() {
+            const id = document.getElementById("id").value;
+            const url = `http://127.0.0.1:8000/itensBasicos/${id}/`;
+
+            console.log("URL:", url);
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Dados:", data);
+                    atualizarCampos(data);
+                })
+                .catch(error => console.log(error));
+        }
+
+        function atualizarCampos(itensBasicos) {
+            console.log("Itens Básicos:", itensBasicos);
+
+            const nomeItemElement = document.getElementById("nomeItem");
+            const statusItem = document.getElementById("statusItem");
+            const buffItem = document.getElementById("buffItem");
+
+            nomeItemElement.textContent = itensBasicos.nome;
+            statusItem.textContent = itensBasicos.status;
+            buffItem.textContent = itensBasicos.buff;
+        }
+
+    </script>
+</body>
+</html>

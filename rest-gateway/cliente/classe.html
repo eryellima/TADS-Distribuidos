@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Classe</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+        </ul>
+    </nav>
+    <h1>Classe</h1>
+    <form>
+        <label for="id">ID da Classe:</label>
+        <input type="number" id="id">
+        <button type="button" onclick="buscarClasse()">Buscar</button>
+    </form>
+
+    <h2>Dados da Classe</h2>
+    <p>
+        <strong>Classe:</strong> <span id="nomeClasse"></span><br>
+        <strong>Bônus:</strong> <span id="bonusClasse"></span>
+    </p>
+
+    <script>
+        function buscarClasse() {
+            const id = document.getElementById("id").value;
+            const url = `http://127.0.0.1:8000/classes/${id}/`;
+
+            console.log("URL:", url);
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Dados:", data);
+                    atualizarCampos(data);
+                })
+                .catch(error => console.log(error));
+        }
+
+        function atualizarCampos(classe) {
+            console.log("Classe:", classe);
+
+            const nomeClasseElement = document.getElementById("nomeClasse");
+            const bonusClasseElement = document.getElementById("bonusClasse");
+
+            nomeClasseElement.textContent = classe.nome;
+            bonusClasseElement.textContent = classe.bonus;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Melhorias</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+        </ul>
+    </nav>
+    <h1>Melhorias</h1>
+    <form>
+        <label for="id">ID da Melhoria:</label>
+        <input type="number" id="id">
+        <button type="button" onclick="buscarMelhoria()">Buscar</button>
+    </form>
+
+    <h2>Dados da Melhoria</h2>
+    <p>
+        <strong>Melhoria:</strong> <span id="nomeMelhoria"></span><br>
+        <strong>Bônus:</strong> <span id="bonusMelhoria"></span><br>
+        <strong>Tier:</strong> <span id="tierMelhoria"></span>
+    </p>
+
+    <script>
+        function buscarMelhoria() {
+            const id = document.getElementById("id").value;
+            const url = `http://127.0.0.1:8000/melhorias/${id}/`;
+
+            console.log("URL:", url);
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Dados:", data);
+                    atualizarCampos(data);
+                })
+                .catch(error => console.log(error));
+        }
+
+        function atualizarCampos(melhoria) {
+            console.log("Melhoria:", melhoria);
+
+            const nomeMelhoriaElement = document.getElementById("nomeMelhoria");
+            const bonusMelhoriaElement = document.getElementById("bonusMelhoria");
+            const tierMelhoriaElement = document.getElementById("tierMelhoria");
+
+            nomeMelhoriaElement.textContent = melhoria.nome;
+            bonusMelhoriaElement.textContent = melhoria.bonus;
+            tierMelhoriaElement.textContent = melhoria.tier;
+        }
+
+    </script>
+</body>
+</html>
