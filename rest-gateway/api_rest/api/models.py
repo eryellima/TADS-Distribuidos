@@ -57,7 +57,7 @@ class Champion(models.Model):
     ap = models.IntegerField()
     dps = models.IntegerField()
     dano = models.IntegerField()
-    crti_rate = models.IntegerField()
+    crit_rate = models.IntegerField()
     alcance = models.IntegerField()
     habilidade = models.TextField()
 
