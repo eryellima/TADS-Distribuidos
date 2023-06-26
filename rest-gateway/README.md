@@ -5,7 +5,7 @@ API Gateway é um serviço que permite que que desenvolvedores criem, publiquem,
 ## Tarefa
 - A tarefa consistia em criar pequenos microsserviços e criar uma API Gateway para poder ser uma especie de filto para esses microsserviços.
 
-Foi criado dois projetos em `Django` um dos projetos é voltado para a parte dos microsserviços, onde tentei criar duas pequenas APIs para gerenciar filmes e tarefas. E o outro projeto consiste no Gateway ao qual iria servir de "porta de entrada".
+Foi criado dois projetos em `Django` um dos projetos é voltado para a parte dos microsserviços, onde tentei criar duas pequenas APIs para gerenciar recursos do TeamFights Tatics (TFT). E o outro projeto consiste no Gateway ao qual iria servir de "porta de entrada".
 
 ###### OBS
 Preciso ajustar um erro do gateway
