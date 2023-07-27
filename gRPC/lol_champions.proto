@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package lol;
+
+service ChampionService {
+  rpc GetChampionInfo(ChampionRequest) returns (ChampionResponse) {}
+}
+
+message ChampionRequest {
+  string name = 1;
+}
+
+message ChampionResponse {
+  string name = 1;
+  string role = 2;
+  int32 difficulty = 3;
+  repeated string abilities = 4;
+}

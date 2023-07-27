@@ -6,15 +6,13 @@
 *.dll
 *.so
 *.dylib
+*.ini
 
 # Diretórios gerados
 __pycache__/
 dist/
 build/
 *.egg-info/
-
-# Arquivos de configuração
-*.ini
 
 # Google Drive
 desktop.ini
@@ -24,3 +22,7 @@ desktop.ini
 /.venv
 /.vscode
 /.idea
+/venv
+
+# Node.js
+/node_modules
