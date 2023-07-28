@@ -1,79 +1,55 @@
-import graphene
 import grpc
-import time
-import lol_champions_pb2
-import lol_champions_pb2_grpc
+import champion_pb2
+import champion_pb2_grpc
 from concurrent import futures
 
 
 
-# Implementa o serviso definido no arquivo '.proto'
-class ChampionService(lol_champions_pb2_grpc.ChampionServiceServicer):
-    # Retonrna informações sobre alguns Champions do LoL com base no nome.
-    def GetChampionInfo(self, request, context):
-        champion_name = request.name.lower()
-        if champion_name == 'aatrox':
-            return lol_champions_pb2.ChampionResponse(
-                name='Aatrox',
-                role='Top Lane',
-                difficulty=3,
-                abilities=['The Darkin Blade', 'Infernal Chains', 'Umbral Dash', 'World Ender']
+class ChampionServiceServicer(champion_pb2_grpc.ChampionServiceServicer):
+    def GetChampionByName(self, request, context):
+        if request.name == "Aatrox":
+            return champion_pb2.Champion(
+                name="Aatrox",
+                classe="Fighter",
+                origin="Darkin",
+                abilities=["The Darkin Blade", "Infernal Chains", "Umbral Dash", "World Ender"]
+            )
+        elif request.name == "Ahri":
+            return champion_pb2.Champion(
+                name="Ahri",
+                classe="Mage",
+                origin="Vastaya",
+                abilities=["Orb of Deception", "Fox-Fire", "Charm", "Spirit Rush"]
             )
         else:
-            return lol_champions_pb2.ChampionResponse(
-                name='Campeão Desconhecido',
-                role='Desconhecido',
-                difficulty=0,
-                abilities=[]
-            )
+            return champion_pb2.Champion()
+        
 
+        def ListChampions(self, request, context):
+            champions = [
+                champion_pb2.Champion(
+                    name="Aatrox",
+                    class_="Fighter",
+                    origin="Darkin",
+                    abilities=["The Darkin Blade", "Infernal Chains", "Umbral Dash", "World Ender"]
+                ),
+                champion_pb2.Champion(
+                    name="Ahri",
+                    class_="Mage",
+                    origin="Vastaya",
+                    abilities=["Orb of Deception", "Fox-Fire", "Charm", "Spirit Rush"]
+                ),
+            ]
 
+            return champion_pb2.ChampionList(champions=champions)
 
-class ChampionType(graphene.ObjectType):
-    name = graphene.String()
-    role = graphene.String()
-    difficulty = graphene.Int()
-    abilities = graphene.List(graphene.String)
-
-
-class Query(graphene.ObjectType):
-    champion_info = graphene.Field(ChampionType, name=graphene.String())
-
-    def resolve_champion_info(self, info, name):
-        # Aqui você pode implementar a lógica para obter as informações do campeão
-        # do LoL com base no nome fornecido.
-        # Por enquanto, retornaremos algumas informações fictícias.
-        if name.lower() == 'aatrox':
-            return {
-                'name': 'Aatrox',
-                'role': 'Top Lane',
-                'difficulty': 3,
-                'abilities': ['The Darkin Blade', 'Infernal Chains', 'Umbral Dash', 'World Ender']
-            }
-        else:
-            return {
-                'name': 'Campeão Desconhecido',
-                'role': 'Desconhecido',
-                'difficulty': 0,
-                'abilities': []
-            }
-
-schema = graphene.Schema(query=Query)
-
-
-# Configurações do server
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    lol_champions_pb2_grpc.add_ChampionServiceServicer_to_server(ChampionService(), server)
+    champion_pb2_grpc.add_ChampionServiceServicer_to_server(ChampionServiceServicer(), server)
     server.add_insecure_port('[::]:50051')
+    print("O servidor está rodando na porta 50051...")
     server.start()
-    print("Servidor iniciado na porta 50051...")
-    try:
-        while True:
-            time.sleep(86400)
-    except KeyboardInterrupt:
-        server.stop(0)
+    server.wait_for_termination()
 
-# Inicia o server
 if __name__ == '__main__':
     serve()

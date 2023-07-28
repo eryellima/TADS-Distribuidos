@@ -22,7 +22,7 @@ desktop.ini
 /.venv
 /.vscode
 /.idea
-/venv
+venv/
 
 # Node.js
 /node_modules

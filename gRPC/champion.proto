@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+message Champion {
+  string name = 1;
+  string classe = 2;
+  string origin = 3;
+  repeated string abilities = 4;
+}
+
+service ChampionService {
+  rpc GetChampionByName (ChampionNameRequest) returns (Champion);
+}
+
+message ChampionNameRequest {
+  string name = 1;
+}
