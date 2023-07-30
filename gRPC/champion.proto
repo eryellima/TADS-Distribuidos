@@ -1,5 +1,7 @@
+// Indica que estamos usando a sintaxe da versão 3 do Protocol Buffer (proto3).
 syntax = "proto3";
 
+// Definição da mensagem Champion, que representa os dados de um campeão.
 message Champion {
   string name = 1;
   string classe = 2;
@@ -7,10 +9,15 @@ message Champion {
   repeated string abilities = 4;
 }
 
+// Definição do serviço ChampionService, que contém métodos remotos que podem ser chamados por clientes remotos.
 service ChampionService {
   rpc GetChampionByName (ChampionNameRequest) returns (Champion);
 }
 
+// Definição da mensagem ChampionNameRequest, que representa o nome do campeão que o cliente deseja consultar.
 message ChampionNameRequest {
   string name = 1;
 }
+
+
+// python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. champion.proto
