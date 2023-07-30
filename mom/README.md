@@ -10,7 +10,3 @@ O MOM é um tipo de middleware orientado à mensagem. Um cliente pode enviar e r
 ## Regras
 
 - Utilizar um MOM (WebsphereMQ, RabbitMQ, OpenMQ)
-
-### Observações
-
-> O projeto está retornando um erro possivelmente na instalação da biblioteca `pika` quando tentei instalar, preciso resolver.
